@@ -1,0 +1,353 @@
+/* Provincias */
+.ar-pcia {
+	position: absolute;
+}
+.ar-pcia span {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	opacity: 0;
+	-o-transition: opacity 0.5s;
+	-moz-transition: opacity 0.5s;
+	-webkit-transition: opacity 0.5s;
+}
+.ar-pcia span:hover,
+.ar-activo span {
+	opacity: 1;
+}
+/* Jujuy */
+.ar-jujuy {
+	top: 0px;
+	left: 82px;
+	width: 40px;
+	height: 40px;
+	z-index: 2;
+	background: url(../../mapa/img/jujuy-sprite.png) top no-repeat;
+}
+.ar-jujuy span {
+	width: 40px;
+	height: 40px;
+	background: url(../../mapa/img/jujuy-sprite.png) bottom no-repeat;
+}
+/* Catamarca */
+.ar-catamarca {
+	top: 46px;
+	left: 58px;
+	width: 55px;
+	height: 74px;
+	background: url(../../mapa/img/catamarca-sprite.png) top no-repeat;
+}
+.ar-catamarca span {
+	width: 55px;
+	height: 74px;
+	background: url(../../mapa/img/catamarca-sprite.png) bottom no-repeat;
+}
+/* Salta */
+.ar-salta {
+	top: 3px;
+	left: 65px;
+	width: 81px;
+	height: 62px;
+	z-index: 1;
+	background: url(../../mapa/img/salta-sprite.png) top no-repeat;
+}
+.ar-salta span {
+	width: 81px;
+	height: 62px;
+	background: url(../../mapa/img/salta-sprite.png) bottom no-repeat;
+}
+/* TucumÃ¡n */
+.ar-tucuman {
+	top: 60px;
+	left: 96px;
+	width: 22px;
+	height: 28px;
+	z-index: 1;
+	background: url(../../mapa/img/tucuman-sprite.png) top no-repeat;
+}
+.ar-tucuman span {
+	width: 22px;
+	height: 28px;
+	background: url(../../mapa/img/tucuman-sprite.png) bottom no-repeat;
+}
+/* Formosa */
+.ar-formosa {
+	top: 10px;
+	left: 145px;
+	width: 62px;
+	height: 63px;
+	z-index: 1;
+	background: url(../../mapa/img/formosa-sprite.png) top no-repeat;
+}
+.ar-formosa span {
+	width: 62px;
+	height: 63px;
+	background: url(../../mapa/img/formosa-sprite.png) bottom no-repeat;
+}
+/* Chaco */
+.ar-chaco {
+	top: 33px;
+	left: 131px;
+	width: 65px;
+	height: 56px;
+	background: url(../../mapa/img/chaco-sprite.png) top no-repeat;
+}
+.ar-chaco span {
+	width: 65px;
+	height: 56px;
+	background: url(../../mapa/img/chaco-sprite.png) bottom no-repeat;
+}
+/* Santiago del estero */
+.ar-santiago-del-estero {
+	top: 55px;
+	left: 108px;
+	width: 45px;
+	height: 71px;
+	background: url(../../mapa/img/stgo-sprite.png) top no-repeat;
+}
+.ar-santiago-del-estero span {
+	width: 45px;
+	height: 71px;
+	background: url(../../mapa/img/stgo-sprite.png) bottom no-repeat;
+}
+/* La rioja */
+.ar-la-rioja {
+	top: 84px;
+	left: 53px;
+	width: 54px;
+	height: 64px;
+	background: url(../../mapa/img/larioja-sprite.png) top no-repeat;
+}
+.ar-la-rioja span {
+	width: 54px;
+	height: 64px;
+	background: url(../../mapa/img/larioja-sprite.png) bottom no-repeat;
+}
+/* Santa fÃ© */
+.ar-santa-fe {
+	top: 87px;
+	left: 138px;
+	width: 53px;
+	height: 97px;
+	background: url(../../mapa/img/stafe-sprite.png) top no-repeat;
+}
+.ar-santa-fe span {
+	width: 53px;
+	height: 97px;
+	background: url(../../mapa/img/stafe-sprite.png) bottom no-repeat;
+}
+/* CÃ³rdoba */
+.ar-cordoba {
+	top: 111px;
+	left: 101px;
+	width: 52px;
+	height: 84px;
+	background: url(../../mapa/img/cordoba-sprite.png) top no-repeat;
+}
+.ar-cordoba span {
+	width: 52px;
+	height: 84px;
+	background: url(../../mapa/img/cordoba-sprite.png) bottom no-repeat;
+}
+/* San Juan */
+.ar-san-juan {
+	top: 93px;
+	left: 39px;
+	width: 50px;
+	height: 65px;
+	background: url(../../mapa/img/sanjuan-sprite.png) top no-repeat;
+}
+.ar-san-juan span {
+	width: 50px;
+	height: 65px;
+	background: url(../../mapa/img/sanjuan-sprite.png) bottom no-repeat;
+}
+/* Misiones */
+.ar-misiones {
+	top: 52px;
+	left: 227px;
+	width: 32px;
+	height: 38px;
+	background: url(../../mapa/img/misiones-sprite.png) top no-repeat;
+}
+.ar-misiones span {
+	width: 32px;
+	height: 38px;
+	background: url(../../mapa/img/misiones-sprite.png) bottom no-repeat;
+}
+/* Corrientes */
+.ar-corrientes {
+	top: 78px;
+	left: 180px;
+	width: 53px;
+	height: 52px;
+	background: url(../../mapa/img/corrientes-sprite.png) top no-repeat;
+}
+.ar-corrientes span {
+	width: 53px;
+	height: 52px;
+	background: url(../../mapa/img/corrientes-sprite.png) bottom no-repeat;
+}
+/* Entre rÃ­os */
+.ar-entre-rios {
+	top: 120px;
+	left: 165px;
+	width: 39px;
+	height: 59px;
+	z-index: 1;
+	background: url(../../mapa/img/entrerios-sprite.png) top no-repeat;
+}
+.ar-entre-rios span {
+	width: 39px;
+	height: 59px;
+	background: url(../../mapa/img/entrerios-sprite.png) bottom no-repeat;
+}
+/* Buenos aires */
+.ar-buenos-aires {
+	top: 166px;
+	left: 132px;
+	width: 87px;
+	height: 126px;
+	background: url(../../mapa/img/bsas-sprite.png) top no-repeat;
+}
+.ar-buenos-aires span {
+	width: 87px;
+	height: 126px;
+	background: url(../../mapa/img/bsas-sprite.png) bottom no-repeat;
+}
+/* San Luis */
+.ar-san-luis {
+	top: 146px;
+	left: 80px;
+	width: 32px;
+	height: 64px;
+	background: url(../../mapa/img/sanluis-sprite.png) top no-repeat;
+}
+.ar-san-luis span {
+	width: 32px;
+	height: 64px;
+	background: url(../../mapa/img/sanluis-sprite.png) bottom no-repeat;
+}
+/* Mendoza */
+.ar-mendoza {
+	top: 147px;
+	left: 39px;
+	width: 52px;
+	height: 89px;
+	background: url(../../mapa/img/mendoza-sprite.png) top no-repeat;
+}
+.ar-mendoza span {
+	width: 52px;
+	height: 89px;
+	background: url(../../mapa/img/mendoza-sprite.png) bottom no-repeat;
+}
+/* La pampa */
+.ar-la-pampa {
+	top: 193px;
+	left: 69px;
+	width: 64px;
+	height: 71px;
+	background: url(../../mapa/img/lapampa-sprite.png) top no-repeat;
+}
+.ar-la-pampa span {
+	width: 64px;
+	height: 71px;
+	background: url(../../mapa/img/lapampa-sprite.png) bottom no-repeat;
+}
+/* RÃ­o negro */
+.ar-rio-negro {
+	top: 235px;
+	left: 22px;
+	width: 118px;
+	height: 74px;
+	background: url(../../mapa/img/rionegro-sprite.png) top no-repeat;
+}
+.ar-rio-negro span {
+	width: 118px;
+	height: 74px;
+	background: url(../../mapa/img/rionegro-sprite.png) bottom no-repeat;
+}
+/* NeuquÃ©n */
+.ar-neuquen {
+	top: 211px;
+	left: 21px;
+	width: 51px;
+	height: 83px;
+	z-index: 1;
+	background: url(../../mapa/img/neuquen-sprite.png) top no-repeat;
+}
+.ar-neuquen span {
+	width: 51px;
+	height: 83px;
+	background: url(../../mapa/img/neuquen-sprite.png) bottom no-repeat;
+}
+/* Chubut */
+.ar-chubut {
+	top: 307px;
+	left: 18px;
+	width: 111px;
+	height: 73px;
+	z-index: 1;
+	background: url(../../mapa/img/chubut-sprite.png) top no-repeat;
+}
+.ar-chubut span {
+	width: 111px;
+	height: 73px;
+	background: url(../../mapa/img/chubut-sprite.png) bottom no-repeat;
+}
+/* Santa cruz */
+.ar-santa-cruz {
+	top: 379px;
+	left: 0px;
+	width: 102px;
+	height: 127px;
+	z-index: 1;
+	background: url(../../mapa/img/sta-sprite.png) top no-repeat;
+}
+.ar-santa-cruz span {
+	width: 102px;
+	height: 127px;
+	background: url(../../mapa/img/sta-sprite.png) bottom no-repeat;
+}
+/* Tierra del fuego */
+.ar-tierra-del-fuego {
+	top: 510px;
+	left: 64px;
+	width: 61px;
+	height: 53px;
+	z-index: 1;
+	background: url(../../mapa/img/tierra-sprite.png) top no-repeat;
+}
+.ar-tierra-del-fuego span {
+	width: 61px;
+	height: 53px;
+	background: url(../../mapa/img/tierra-sprite.png) bottom no-repeat;
+}
+/* Malvinas */
+.ar-malvinas {
+	top: 486px;
+	left: 160px;
+	width: 43px;
+	height: 21px;
+	z-index: 1;
+	background: url(../../mapa/img/malvinas-sprite.png) top no-repeat;
+}
+.ar-malvinas span {
+	width: 43px;
+	height: 21px;
+	background: url(../../mapa/img/malvinas-sprite.png) bottom no-repeat;
+}
+/* Ciudad autÃ³noma de Buenos aires */
+.ar-caba {
+	top: 180px;
+	left: 190px;
+	width: 20px;
+	height: 20px;
+	z-index: 1;
+	background: url(../../mapa/img/caba-sprite.png) top no-repeat;
+}
+.ar-caba span {
+	width: 20px;
+	height: 20px;
+	background: url(../../mapa/img/caba-sprite.png) bottom no-repeat;
+}

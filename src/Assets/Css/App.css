@@ -1,0 +1,160 @@
+.App {
+  text-align: center;
+}
+.header{
+  margin-left: 30px;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.nav-color{
+  color: white;
+  padding-right: .5rem;
+  padding-left: .5rem;
+}
+
+:active>.nav-color{
+
+  color: black;
+  padding-right: .5rem;
+  padding-left: .5rem;
+}
+
+:hover>.nav-color{
+
+  color: black;
+  padding-right: .5rem;
+  padding-left: .5rem;
+}
+
+h4{
+  color: grey;
+}
+
+.right{
+  float: right;
+  
+}
+
+.footer{
+  background-color:#f8a700;
+  color: white;
+}
+
+.footer-ul{
+  display: inline-table; 
+  font-size: larger;
+}
+
+.footer-li{
+  display: table-cell;
+  padding: 60px;
+  margin: 15px;
+}
+
+.footerli{
+  color: navajowhite;
+}
+
+.foot-foot{
+  background-color:lightgray;
+  color: darkgray;
+  font-size: x-small;
+}
+
+.MyNavbar{
+  background-color: yellowgreen;
+  font-size: larger;
+}
+
+.srt{
+  height: 60px; 
+  margin-top: 15px; 
+  margin-right: 35px;
+}
+
+.ssn{
+  height: 70px;
+  margin-top: 5px;
+}
+
+.MultiTabs{
+  font-size: larger;
+}
+
+#Provincias {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 260px;
+  height: 565px;
+  float: left;
+}
+#Descripcion {
+  position: relative;
+  padding-left: 260px;
+}
+#Delegaciones {
+  height: 780px;
+}
+
+.img-ico{
+  color:orange
+}
+
+.list-item-descargas{
+  padding-top: 25px;
+  border-bottom: 2px solid orange;
+  font-weight: bold;
+  text-align: justify;
+  font-size: large;
+  display: block;
+  padding: 1.75rem .75rem .60rem 1.25rem;
+}
+
+.inicio-title{
+  border-bottom: 2px solid orange;
+  display: inline-flex
+}
+
+.Reclamos{
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: inline-flex;
+
+}

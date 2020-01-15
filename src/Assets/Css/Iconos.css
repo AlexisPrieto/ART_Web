@@ -1,0 +1,44 @@
+.icono{
+    padding: 60px;
+    margin: 10px;
+    background-color: #84bc01;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.imagen{
+    transform: scale(0.7);
+}
+
+.desc{
+    text-align: center;
+    box-sizing: border-box;
+    display: inherit;
+    color: gray;
+}
+
+div.gallery img {
+    width: 100%;
+    height: auto;
+  }
+  
+  
+  .responsive {
+    padding: 0 6px;
+    display: inline;
+    width: 24.99999%;
+  }
+  
+  .white{
+      background-color: white;
+  }
+
+  .icon-flex{
+    display: flex;
+  }
+
+  .Reclamos-List{
+    width: 30%;
+    text-align: center;
+  }
+
