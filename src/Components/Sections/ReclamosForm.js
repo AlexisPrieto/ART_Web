@@ -2,34 +2,29 @@ import React, {useState, Fragment } from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import {createMuiTheme, makeStyles, withStyles,ThemeProvider} from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
-import Checkbox from '@material-ui/core/Checkbox';
 import Radio from '@material-ui/core/Radio';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
+const theme = createMuiTheme({
+    palette: {
+      primary: green,
+      secondary: green,
+    },
+  });
+    
 const useStyles = makeStyles(theme => ({
     formControl: {
-      margin: theme.spacing(1),
+      margin: theme.spacing(2),
       minWidth: 120,
     },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-  }));
-
-  const GreenCheckbox = withStyles({
-    root: {
-      color: green[400],
-      '&$checked': {
-        color: green[600],
+    button: {
+        'font-weight': 'bold',
+        margin: theme.spacing(1),
       },
-    },
-    checked: {},
-  })(props => <Checkbox color="default" {...props} />);
+  }));
 
   const GreenRadio = withStyles({
     root: {
@@ -94,13 +89,6 @@ const ReclamosForm = (props) => {
         if (name === "tema") {
             categoria = valorCategoria(value);
             resultado.categoria = categoria[0];
-
-            // setState(() => ({
-            //     categoria: categoria,
-            //     resultado: resultado
-            // }));
-            // console.log('cat:' +state.categoria)
-            // return;
         }
 
         setState({
@@ -110,15 +98,10 @@ const ReclamosForm = (props) => {
       };
       
     return (
-        <Fragment>
-
-           
-
-            <div width="66.6666666667%">
-
-                <p>{JSON.stringify(state, null, 2)}</p>
-                <form>
-                <div style={{display: 'flex'}}>
+        <ThemeProvider theme={theme}>
+            <div  width="66.6666666667%">
+                {/*<p>{JSON.stringify(state, null, 2)}</p>*/}
+                <div  style={{display: 'flex'}}>
                     <FormControl variant="outlined" className={classes.formControl}>
                         <InputLabel ref={inputLabel} htmlFor="tipodeTramite">
                         Tramite
@@ -136,8 +119,6 @@ const ReclamosForm = (props) => {
                         </Select>
                     </FormControl>
 
-                    
-
                     {/*<FormControlLabel
                         control={
                         <GreenCheckbox
@@ -150,143 +131,142 @@ const ReclamosForm = (props) => {
                         }
                         label="Ninguna"
                     />*/}
-                                
-                    <label>
-                        Ninguna
-                        <GreenRadio
-                        checked={state.resultado.tipoPersona === 'x'}
-                        onChange={event => valueToState(event.target)}
-                        value={"x"}
-                        type="radio"
-                        name="tipoPersona"
-                        />
-                    </label>
 
-                    <label>
-                        Trabajador
-                        <GreenRadio
-                        type="radio"
-                        name="tipoPersona"
-                        checked={state.resultado.tipoPersona === 't'}
-                        onChange={event => valueToState(event.target)}
-                        value="t"
-                        />
-                    </label>
+                    <div  style={{display: 'flex','align-self': 'center'}}>
+                        <label>
+                            Ninguna
+                            <GreenRadio
+                            checked={state.resultado.tipoPersona === 'x'}
+                            onChange={event => valueToState(event.target)}
+                            value={"x"}
+                            type="radio"
+                            name="tipoPersona"
+                            />
+                        </label>
 
-                    <label>
-                        Empleador
-                        <GreenRadio
-                        type="radio"
-                        name="tipoPersona"
-                        checked={state.resultado.tipoPersona === 'e'}
-                        onChange={event => valueToState(event.target)}
-                        value="e"
-                        />
-                    </label>
-                    
-                    
+                        <label>
+                            Trabajador
+                            <GreenRadio
+                            type="radio"
+                            name="tipoPersona"
+                            checked={state.resultado.tipoPersona === 't'}
+                            onChange={event => valueToState(event.target)}
+                            value="t"
+                            />
+                        </label>
+
+                        <label>
+                            Empleador
+                            <GreenRadio
+                            type="radio"
+                            name="tipoPersona"
+                            checked={state.resultado.tipoPersona === 'e'}
+                            onChange={event => valueToState(event.target)}
+                            value="e"
+                            />
+                        </label>
+                    </div>       
+                                        
                     <form className={classes.formControl} noValidate autoComplete="off">
                         <TextField
                             label="Siniestro"
                             variant="outlined"
-                            color="green"
                             name="siniestro"
                             type="text"
                             onChange={event => valueToState(event.target)}
                         />
                     </form>
                 </div>
-                    <form className={classes.root} noValidate autoComplete="off">
+
+                <div style={{display: 'flex'}}>  
+                    <form className={classes.formControl} noValidate autoComplete="off">
                         <TextField
-                            label="Nombre y Apellido / Razon Social"
+                            label="Nombre / Razon Social"
                             variant="outlined"
-                            color="green"
                             name="razonSocial"
+                            color="primary"
                             type="text"
                             onChange={event => valueToState(event.target)}
                         />
-                    </form>
+                    </form> 
 
 
-                    <form className={classes.root} noValidate autoComplete="off">
+                    <form className={classes.formControl} noValidate autoComplete="off">
                         <TextField
                             label="DNI"
                             variant="outlined"
-                            color="green"
                             name="dni"
                             type="text"
                             onChange={event => valueToState(event.target)}
                         />
                     </form>
 
-                    <form className={classes.root} noValidate autoComplete="off">
+                    <form className={classes.formControl} noValidate autoComplete="off">
                         <TextField
                             label="CUIT"
                             variant="outlined"
-                            color="green"
                             name="cuit"
                             type="text"
                             onChange={event => valueToState(event.target)}
                         />
                     </form>
+                </div>
 
-                    <form className={classes.root} noValidate autoComplete="off">
+                <div  style={{display: 'flex'}}>
+                    <form className={classes.formControl} noValidate autoComplete="off">
                         <TextField
                             label="Teléfono Particular"
                             variant="outlined"
-                            color="green"
                             name="telParticular"
                             type="tel"
                             onChange={event => valueToState(event.target)}
                         />
                     </form>
 
-                    <form className={classes.root} noValidate autoComplete="off">
+                    <form className={classes.formControl} noValidate autoComplete="off">
                         <TextField
                             label="Teléfono Laboral"
                             variant="outlined"
-                            color="green"
                             name="telLaboral"
                             type="tel"
                             onChange={event => valueToState(event.target)}
                         />
                     </form>
 
-                    <form className={classes.root} noValidate autoComplete="off">
+                    <form className={classes.formControl} noValidate autoComplete="off">
                         <TextField
                             label="Teléfono Celular"
                             variant="outlined"
-                            color="green"
                             name="telCelular"
                             type="tel"
                             onChange={event => valueToState(event.target)}
                         />
                     </form>
+                </div>
 
-                    <form className={classes.root} noValidate autoComplete="off">
+                <div  style={{display: 'flex'}}>
+                    <form className={classes.formControl} noValidate autoComplete="off">
                         <TextField
                             label="Direccion"
                             variant="outlined"
-                            color="green"
                             name="direccion"
                             type="text"
                             onChange={event => valueToState(event.target)}
                         />
                     </form>
 
-                    <form className={classes.root} noValidate autoComplete="off">
+                    <form className={classes.formControl} noValidate autoComplete="off">
                         <TextField
                             label="Email"
                             variant="outlined"
-                            color="green"
                             name="email"
                             type="email"
                             onChange={event => valueToState(event.target)}
                         />
                     </form>
+                </div>
 
-
-
+                <div style={{display: 'flex'}}>
                     <FormControl variant="outlined" className={classes.formControl} >
                         <InputLabel ref={inputLabel} htmlFor="tema">
                             Tema
@@ -326,16 +306,29 @@ const ReclamosForm = (props) => {
 
                         </Select>
                     </FormControl>
-                   
-                    <label htmlFor="mensaje">Mensaje:</label>
-                    <textarea
+                </div>   
+                    {/*<label htmlFor="mensaje">Mensaje:</label>*/}
+                <div className="contact-form"> 
+                    <form className={classes.formControl} noValidate autoComplete="off">
+                    <textarea 
                         name="mensaje"
-                        placeholder="Escribe tus sugerencias"
+                        placeholder="Escriba su sugerencia"
                         onChange={event => valueToState(event.target)}
-                    />            
-                </form>
+                    /> 
+                    </form>      
+                </div>
+
+                <ThemeProvider theme={theme}>
+                    <Button variant="contained" color="primary" className={classes.button}>
+                        Enviar
+                    </Button>
+                    <Button variant="contained" color="primary" className={classes.button}>
+                        Cancelar
+                    </Button>
+                </ThemeProvider>
+                    
             </div>
-     </Fragment>
+     </ThemeProvider>
     );
 };
   

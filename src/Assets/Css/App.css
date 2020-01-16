@@ -156,5 +156,33 @@ h4{
     padding-left: 15px;
     padding-right: 15px;
     display: inline-flex;
+}
 
+.contact-form input:not([type="submit"]), .contact-form input:not([type="checkbox"]), .contact-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  -webkit-transition: .3s ease;
+          transition: .3s ease; 
+          border-color: green;
+        }
+
+.contact-form input[type="checkbox"]{
+  margin: 20px;
+  background: #ededed;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  border-radius: 50%;
+  position: relative;
+  border-color: green;
+}
+
+.contact-form input:not([type="submit"]):focus, .contact-form input:not([type="submit"]):hover, .contact-form textarea:focus, .contact-form textarea:hover {
+    border-color: green;
+}
+
+.contact-form textarea {
+  min-height: 150px;
+  margin-bottom: 20px; 
+  border-color: green;
 }
