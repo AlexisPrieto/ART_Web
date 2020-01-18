@@ -8,8 +8,6 @@ import Radio from '@material-ui/core/Radio';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
-import moment from "moment"
-import Api from '../../Api/Api';
 
 const theme = createMuiTheme({
     palette: {
@@ -40,53 +38,46 @@ const useStyles = makeStyles(theme => ({
   })(props => <Radio color="default" {...props} />);
 
 const ReclamosForm = (props) => {
-            
-    const classes = useStyles();
-
-    const inputLabel = React.useRef(null);
-    const [labelWidth, setLabelWidth] = React.useState(0);
-    React.useEffect(() => {
-        setLabelWidth(inputLabel.current.offsetWidth);
-    }, []);
 
     const [state, setState] = useState({
-            categoria: [{
-                cod:"",
-                des:""
-            }],
+            categoria: [],
             resultado: {
-            tipodeTramite: 0,
-            tipoPersona: 0,
-            siniestro: 0,
+            tipodeTramite: "",
+            tipoPersona: "",
+            siniestro:"",
             razonSocial: "",
-            dni:0,
-            cuit:'',
+            dni:"",
+            cuit:"",
             telParticular:"",
             telLaboral:"",
             telCelular:"",
             direccion:"",
             email:"",
-            tema: 0,
-            categoria:0,
+            tema: "",
+            categoria:"",
             mensaje: ""
           }});
-
-          /*
-          cod:"",
-          des:""*/
 
           const valorCategoria = (v) => {
             console.log('v: '+v);
             switch (v) {
-                case "1": return [{cod:0, desc:''},{cod: 1,desc:'Alcance de la Cobertura'},{cod:2,desc:'Presentacion de Documentos'},{cod:3,desc:'Tarifas'},{cod:4,desc:'Otros'}];
-                case "2": return [{cod:0, desc:''},{cod: 5,desc:'Solicitud de Documentacion para Tramite'},{cod:6,desc:'Turnos'},{cod:7,desc:'Otros'}];
-                case "3": return [{cod:0, desc:''},{cod: 8,desc:'Exámenes Periódicos'}];
-                case "4": return [{cod:0, desc:''},{cod: 9,desc:'Pago de Incapacidades'},{cod:10,desc:'Pago Directo de ILT'},{cod:11,desc:'Reintegro de ILT'},{cod:12,desc:'Otros'}];
-                case "5": return [{cod:0, desc:''},{cod: 13,desc:'Demora en Prestaciones'},{cod:14,desc:'Reintegro de Gastos'},{cod:15,desc:'Solicitud de Historia Clinica'},{cod:16,desc:'Traslado'},{cod:17,desc:'Turno'},{cod:18,desc:'Otros'}];
-                case "6": return [{cod:0, desc:''},{cod: 19,desc:'Presentacion de Documentos'},{cod:20,desc:'Visitas a Establecimientos'},{cod:21,desc:'Otros'}];
-                default: return [{}];
+                case "1": return [[100,''],[101,'Alcance de la Cobertura'],[102,'Presentacion de Documentos'],[103,'Tarifas'],[104,'Otros']];
+                case "2": return [[200,''],[201,'Solicitud de Documentacion para Tramite'],[202,'Turnos'],[203,'Otros']];
+                case "3": return [[300,''],[301,'Exámenes Periódicos']];
+                case "4": return [[400,''],[401,'Pago de Incapacidades'],[402,'Pago Directo de ILT'],[403,'Reintegro de ILT'],[404,'Otros']];
+                case "5": return [[500,''],[501,'Demora en Prestaciones'],[502,'Reintegro de Gastos'],[503,'Solicitud de Historia Clinica'],[504,'Traslado'],[505,'Turno'],[506,'Otros']];
+                case "6": return [[600,''],[601,'Presentacion de Documentos'],[602,'Visitas a Establecimientos'],[603,'Otros']];
+                default: return [[]];
             }
         }; 
+        
+        const classes = useStyles();
+
+        const inputLabel = React.useRef(null);
+        const [labelWidth, setLabelWidth] = React.useState(0);
+        React.useEffect(() => {
+            setLabelWidth(inputLabel.current.offsetWidth);
+        }, []);
            
       const valueToState = ({ name, value, checked, type }) => {
 
@@ -97,62 +88,31 @@ const ReclamosForm = (props) => {
             console.log('value: '+value)         
         if (name === "tema") {
             categoria = valorCategoria(value);
-            console.log(categoria)
-            resultado.categoria = '0';
+            resultado.categoria = categoria[0];
         }
 
         setState({
             categoria: categoria,
             resultado: resultado});
-        console.log(state.categoria)
+        console.log('cat2:' +state.categoria)
       };
       
       const submitHandler = e =>{
           e.preventDefault()
 
-          var date = new Date(); //Current Date
-          var fecha = moment(date).format('YYYY-MM-DD HH:mm:ss')
-
-          const refReclamoConsulta = {
-            Interno: 0,
-            Operador: 4,//En este punto no tengo operador
-            Origen: 4,//4 = WEB
-            Tramite: parseInt(state.resultado.tipodeTramite),
-            Tema: parseInt(state.resultado.tema),
-            Categoria: parseInt(state.resultado.categoria),
-            Contacto: 0,
-            Apertura: fecha,
-            Cierre: null,
-            Siniestro: parseInt(state.resultado.siniestro),
+         const refReclamoConsulta = {
+            Operador: null,//En este punto no tengo operador
+            Origen: '4',//4 = WEB
+            Tramite: [state.resultado.tipodeTramite],
+            Tema: [state.resultado.tema],
+            Categoria: null,
+            Contacto: null,
+            Apertura: null,
+            Cierre: null
           };
-          console.log(refReclamoConsulta)
-          Api.post(`RefReclamoConsulta/RefReclamoConsultaAgregar`, refReclamoConsulta, {
-                headers: {
-                    'Content-Type': 'application/json',
-                }            
-            })     
-            .then(response => {
-               console.log('respuesta'+response)
-            })
-            .catch(error =>{
-                console.log('error'+error)
-            })
+
+          console.log([state.resultado])
       } 
-
-
-      function soloNumeros(e){
-        var tecla = (document.all) ? e.keyCode : e.which;
-
-        //Tecla de retroceso para borrar, siempre la permite
-        if (tecla==8){
-            return true;
-        }
-            
-        // Patron de entrada, en este caso solo acepta numeros
-        var patron =/[0-9]/;
-        var tecla_final = String.fromCharCode(tecla);
-        return patron.test(tecla_final);
-    }
 
     return (
         <ThemeProvider theme={theme}>
@@ -170,11 +130,24 @@ const ReclamosForm = (props) => {
                         onChange={event => valueToState(event.target)}
                         >
                         <option value="" />
-                        <option value={1}>Consulta</option>
-                        <option value={2}>Reclamo</option>
-                        <option value={3}>Queja</option>
+                        <option value={"1"}>Consulta</option>
+                        <option value={"2"}>Reclamo</option>
+                        <option value={"3"}>Queja</option>
                         </Select>
                     </FormControl>
+
+                    {/*<FormControlLabel
+                        control={
+                        <GreenCheckbox
+                            type="radio"
+                            name="tipoPersona"
+                            checked={state.checkedG}
+                            onChange={event => valueToState(event.target)}
+                            value={"x"}
+                        />
+                        }
+                        label="Ninguna"
+                    />*/}
 
                     <div  style={{display: 'flex','align-self': 'center'}}>
                         <label>
@@ -217,10 +190,7 @@ const ReclamosForm = (props) => {
                             variant="outlined"
                             name="siniestro"
                             type="text"
-                            maxlength="10"
-                            onkeypress={event => soloNumeros(event)}
                             onChange={event => valueToState(event.target)}
-                            error={state.resultado.siniestro > 99999999 ? 'Ingrese un numero menor' : ''}
                         />
                     </FormControl>
                 </div>
@@ -324,13 +294,13 @@ const ReclamosForm = (props) => {
                         name="tema"
                         onChange={event => valueToState(event.target)}
                         >
-                            <option value={0}></option>
-                            <option value={1}>Afiliación y Contratos</option>
-                            <option value={2}>Comisiones Médicas</option>
-                            <option value={3}>Exámenes Periódicos</option>
-                            <option value={4}>Prestaciones Dinerarias</option>
-                            <option value={5}>Prestaciones en Especie</option>
-                            <option value={6}>Prevención</option>
+                            <option value={""}></option>
+                            <option value={"1"}>Afiliación y Contratos</option>
+                            <option value={"2"}>Comisiones Médicas</option>
+                            <option value={"3"}>Exámenes Periódicos</option>
+                            <option value={"4"}>Prestaciones Dinerarias</option>
+                            <option value={"5"}>Prestaciones en Especie</option>
+                            <option value={"6"}>Prevención</option>
                         </Select>
                     </FormControl>
                     
@@ -344,9 +314,9 @@ const ReclamosForm = (props) => {
                             name="categoria"
                             onChange={event =>valueToState(event.target)}
                         >
-                            {state.categoria.map((cat) =>{
+                            {state.categoria.map((desc,index) =>{
                                 return (
-                                    <option value={cat.cod} key={cat.cod} >{ cat.desc }</option>
+                                    <option value={desc} key={index} >{ desc }</option>
                                 )    
 
                             })} 
