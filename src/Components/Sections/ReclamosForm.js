@@ -71,10 +71,6 @@ const ReclamosForm = (props) => {
             mensaje: ""
           }});
 
-          /*
-          cod:"",
-          des:""*/
-
           const valorCategoria = (v) => {
             console.log('v: '+v);
             switch (v) {
@@ -115,18 +111,44 @@ const ReclamosForm = (props) => {
 
           const refReclamoConsulta = {
             Interno: 0,
-            Operador: 4,//En este punto no tengo operador
+            Operador: 4,
             Origen: 4,//4 = WEB
-            Tramite: parseInt(state.resultado.tipodeTramite),
-            Tema: parseInt(state.resultado.tema),
-            Categoria: parseInt(state.resultado.categoria),
+            Tramite: state.resultado.tipodeTramite,
+            Tema: state.resultado.tema,
+            Categoria: state.resultado.categoria,
             Contacto: 0,
             Apertura: fecha,
             Cierre: null,
-            Siniestro: parseInt(state.resultado.siniestro),
+            Siniestro: state.resultado.siniestro,
           };
+
+          
+          const refReclamoConsultaDetalle = {
+            Interno: 0,
+            ReclamoConsulta: state.resultado.tipodeTramite,
+            Ingreso: fecha,
+            Medio: 0,
+            Asunto: '',//tema y categoria
+            Cuerpo:  state.resultado.mensaje,
+            Movimiento: 'E',
+            Operador: 0,
+            Revision: null
+          };
+
           console.log(refReclamoConsulta)
           Api.post(`RefReclamoConsulta/RefReclamoConsultaAgregar`, refReclamoConsulta, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }            
+            })     
+            .then(response => {
+               console.log('respuesta'+response)
+            })
+            .catch(error =>{
+                console.log('error'+error)
+            })
+
+            Api.post(`RefReclamoConsultaDetalle/RefReclamoConsultaDetalleAgregar`, refReclamoConsultaDetalle, {
                 headers: {
                     'Content-Type': 'application/json',
                 }            
