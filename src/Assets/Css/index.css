@@ -1,9 +1,12 @@
 
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
+/*@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');*/
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=swap');
 * {
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    /*font-family: monserrat;*/
+    /*font-family:  sans-serif;*/
     /*font-family: 'Bitter', serif;*/
     /*font-family: 'Oxygen', sans-serif;*/
     /*font-weight: 700;*/

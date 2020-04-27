@@ -3,6 +3,13 @@
 }
 .header{
   margin-left: 30px;
+  width: 15%;
+}
+
+@media all and (max-width: 1600px) {
+  .header{
+    width: 16%;
+  }
 }
 
 .App-logo {
@@ -81,7 +88,7 @@ h4{
 
 .footer-li{
   display: table-cell;
-  padding: 60px;
+  padding: 45px;
   margin: 15px;
 }
 
@@ -93,11 +100,13 @@ h4{
   background-color:lightgray;
   color: darkgray;
   font-size: x-small;
+  display: inline-flex;
 }
 
 .MyNavbar{
   background-color: yellowgreen;
-  font-size: larger;
+  font-size: large;
+  min-width: max-content;
 }
 
 .srt{
@@ -138,7 +147,7 @@ h4{
 .list-item-descargas{
   padding-top: 25px;
   border-bottom: 2px solid orange;
-  font-weight: bold;
+  /*font-weight: bold;*/
   text-align: justify;
   font-size: large;
   display: block;
@@ -185,4 +194,11 @@ h4{
   min-height: 150px;
   margin-bottom: 20px; 
   border-color: green;
+}
+
+.my-snakbar{
+    width: 25%;
+    min-block-size: -webkit-fill-available;
+    font-family: monospace;
+    text-transform: uppercase;
 }

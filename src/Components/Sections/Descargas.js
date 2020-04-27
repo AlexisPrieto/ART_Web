@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
 
 const useStylesTab = makeStyles(theme => ({
   root: {
-    'font-size': 'x-large',
+    'font-size': 'unset',
     'font-weight': 'bold'
   },
 }));
@@ -83,11 +83,6 @@ export default function FullWidthTabs() {
   return (
     <Fragment>
     <div className={classes.root} className="container">
-      <h5>
-          Aquí podrá descargar e imprimir los formularios correspondientes a la gestión
-          de la cobertura de Riesgos del Trabajo.
-
-      </h5>
 
       <AppBar  position="static" >
       
@@ -100,7 +95,7 @@ export default function FullWidthTabs() {
           style={{backgroundColor: 'yellowgreen'}}
           //    font-size: x-large;
         >
-          <Tab className={classesTab.root} label="CONTACTOS"  {...a11yProps(0)}/>
+          <Tab className={classesTab.root} label="CONTRATOS"  {...a11yProps(0)}/>
           <Tab className={classesTab.root} label="PREVENCIÓN" {...a11yProps(1)}/>
           <Tab className={classesTab.root} label="SINIESTROS" {...a11yProps(2)}/>
           <Tab className={classesTab.root} label="PRESTADORES"{...a11yProps(3)}/>

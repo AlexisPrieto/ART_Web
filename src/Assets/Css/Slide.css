@@ -1,13 +1,30 @@
 
-.each-slide > div {
+  .text-slide h1{
+      font-weight: 800;
+      font-size: xxx-large;
+  }
+
+  .slide {
+    margin-bottom: -1%;
+  }
+  
+  .each-slide > div {
     display: flex;
     align-items: flex-end;
     /*justify-content: center;*/
     background-size: cover;
-    height: 635px;
+    background-position: bottom;
+    height: 770px;
     color: white;
   }
   
+  @media all and (max-width: 1600px) {
+    .each-slide > div {
+      height: 485px;
+    }
+  }
+
+
   .each-slide span {
     color: white;
     padding: 20px;

@@ -22,24 +22,24 @@ const SlideShow = () => {
                 <div className="each-slide">
                     <div className="text-slide" style={{'backgroundImage': 'url('+img1+')'}}>
                         <h1>
-                            Cuidando al
-                            <a>trabajador rural</a>
+                            Protegiendo a la
+                            gente que trabaja
                         </h1>
                     </div>
                 </div>
                 <div className="each-slide">
                     <div className="text-slide" style={{'backgroundImage': 'url('+img2+')'}}>
                         <h1>
-                            Cuidando al
-                            <a>trabajador rural</a>
+                            Protegiendo a la
+                            gente que trabaja
                         </h1>
                     </div>
                 </div>
                 <div className="each-slide">
                     <div className="text-slide"  style={{'backgroundImage': 'url('+img3+')'}}>
                         <h1>
-                            Cuidando al
-                            <a>trabajador rural</a>
+                        Protegiendo a la
+                            gente que trabaja
                         </h1>
                     </div>
                 </div>

@@ -9,14 +9,22 @@ import {Link} from "react-router-dom";
 import Slideshow from '../SlideShow';
 
 
-
 export class Inicio extends Component {
+
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
+  componentDidUpdate(){
+    window.scrollTo(0, 0)
+  }
+
   render() {
     return (
       <Fragment>
       <Slideshow  className="container center"/>
       <div className="container">
-        
+        {/*
         <h4>
           RURAL ART cuenta con un renovado departamento de Prevención de Riesgo
           que nuclea una red de prestadores con alcance nacional, el grupo
@@ -96,7 +104,7 @@ export class Inicio extends Component {
           conocimientos para que el trabajador rural vea mejorada su atención en
           el día a día.
         </p>
-
+        */}
         <ul className="icon-list icon-flex">
           <div className="responsive gallery">
             <Link className="icono" to="/PRESTACIONES">

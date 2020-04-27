@@ -1,22 +1,16 @@
 import React, {useState} from 'react';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
+import {InputLabel, Button, TextField, Select, FormControl, Radio} from '@material-ui/core';
 import {createMuiTheme, makeStyles, withStyles,ThemeProvider} from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
-import Radio from '@material-ui/core/Radio';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+
 import moment from "moment"
 import Api from '../../Api/Api';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import {Link} from "react-router-dom";
-
-
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
+import {Link, browserHistory} from "react-router-dom";
+//import {Snackbar} from '@material/react-snackbar';
+import Snackbar from '@material-ui/core/Snackbar'
+import '@material/react-snackbar/dist/snackbar.css';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const theme = createMuiTheme({
     palette: {
@@ -47,7 +41,81 @@ const useStyles = makeStyles(theme => ({
   })(props => <Radio color="default" {...props} />);
 
 const ReclamosForm = (props) => {
-            
+
+    const [sna, setSna] = React.useState({
+        open: false,
+        vertical: 'top',
+        horizontal: 'center',
+      });
+    
+    const { vertical, horizontal, open } = sna;
+
+    /*const handleClose = () => {
+        setSna({ ...sna, open: false });
+      };*/
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return; //window.location.reload();
+        }
+
+        if (sb.severitySnackbar === "success"){
+            //window.location.reload();
+            //browserHistory.push("/RECLAMOS");
+            //window.location.href = "";
+            return setSna({ ...sna, open: false });
+        }
+        setSna({ ...sna, open: false });//setSna(false);
+      };  
+
+    function Snackb (e){
+        console.log('entro a la fnc'+e.value);
+        console.log('msj'+e.mensaje);
+        
+        /*if(e.tipo === "success"){
+            setTimeout(() => {
+                window.location.reload();
+            }, 7000);
+        }*/
+
+        return (
+        (e.value === true) ?
+
+            <Snackbar 
+            className = "my-snakbar"
+            anchorOrigin={{ vertical, horizontal }}
+            key={`${vertical},${horizontal}`}
+            open={e.value}
+            onClose={handleClose}
+            message={e.mensaje}
+            action={
+                sb.severitySnackbar == "success" ?
+                (<React.Fragment>
+                    <Link to="/INICIO">
+                        <Button color="secondary" size="small">
+                            OK
+                        </Button>
+                    </Link>
+                    <Link to="/INICIO">
+                        <IconButton size="small" aria-label="close" color="inherit">
+                        <CloseIcon fontSize="small" />
+                        </IconButton>
+                    </Link>
+                </React.Fragment>):
+                (<React.Fragment>
+                    <Button color="secondary" size="small" onClick={handleClose}>
+                        OK
+                    </Button>
+                    <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+                    <CloseIcon fontSize="small" />
+                    </IconButton>
+                </React.Fragment>)
+                }
+            />
+        : null)
+       
+     }
+
     const classes = useStyles();
 
     const inputLabel = React.useRef(null);
@@ -56,59 +124,50 @@ const ReclamosForm = (props) => {
         setLabelWidth(inputLabel.current.offsetWidth);
     }, []);
 
-
-    const [open, setOpen] = React.useState(false);
-    const handleClick = () => {
-        setOpen(true);
-      };
-
-    const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-        return;
-    }
-
-    setOpen(false);
-    };
-
-
     const [state, setState] = useState({
-            categoria: [{
-                cod:"",
-                des:""
-            }],
-            resultado: {
-                tipodeTramite: 0,
-                tipoPersona: 0,
-                siniestro: 0,
-                telParticular:"",
-                telLaboral:"",
-                telCelular:"",
-                direccion:"",
-                email:"",
-                tema: 0,
-                categoria: 0,
-                mensaje: ""
-            },
-          contacto: {
-                interno: 0,
-                docTipo: 80,
-                docNro: "",
-                trabajadorEmpleador: 0,
-                nombre: ""
-              },
-          detalles: {
-                "Interno": 0,
-                "ReclamoConsulta": 0,
-                "Ingreso": null,
-                "Medio": 0,
-                "Asunto": "",
-                "Cuerpo": "",
-                "Movimiento": "E",
-                "Operador": 0,
-                "Revision": null,
-              }   
+        errorMsj:'',
+        categoria: [{
+            cod:"",
+            des:"",
+        }],
+        resultado: {
+            tipodeTramite: 0,
+            tipoPersona: 0,
+            siniestro: 0,
+            telParticular:"",
+            telLaboral:"",
+            telCelular:"",
+            direccion:"",
+            email:"",
+            tema: 0,
+            categoria: 0,
+        },
+        contacto: {
+            interno: 0,
+            docTipo: 0,
+            cuitNro: 0,
+            docNro: 0,
+            trabajadorEmpleador: '',
+            nombre: "",
+        },
+        detalles: {
+            interno2: 0,
+            reclamoConsulta: 0, // id de la cabecera
+            ingreso: null, //today null
+            medio: 0,
+            asunto: "",
+            cuerpo: "",
+            movimiento: "E",
+            operador: 0,
+            revision: null //nullaa
+        },
         }); 	
-
+        
+        const [sb, setsb] = useState({
+            showSnackBar: false,
+            mensajeSnackbar: '',
+            severitySnackbar: "",
+        });
           const valorCategoria = (v) => {
             console.log('v: '+v);
             switch (v) {
@@ -118,54 +177,44 @@ const ReclamosForm = (props) => {
                 case 4: return [{cod:0, desc:''},{cod: 9,desc:'Pago de Incapacidades'},{cod:10,desc:'Pago Directo de ILT'},{cod:11,desc:'Reintegro de ILT'},{cod:12,desc:'Otros'}];
                 case 5: return [{cod:0, desc:''},{cod: 13,desc:'Demora en Prestaciones'},{cod:14,desc:'Reintegro de Gastos'},{cod:15,desc:'Solicitud de Historia Clinica'},{cod:16,desc:'Traslado'},{cod:17,desc:'Turno'},{cod:18,desc:'Otros'}];
                 case 6: return [{cod:0, desc:''},{cod: 19,desc:'Presentacion de Documentos'},{cod:20,desc:'Visitas a Establecimientos'},{cod:21,desc:'Otros'}];
+                case 7: return [{cod:0, desc:''},{cod: 22,desc:'Otros'}];
                 default: return [{}];
             }
         }; 
 
-        //CREO LOS OBJETOS Y LES ASIGNO EL ESTADO ACTUAL
-        let categoria = [...state.categoria];
+        //#region CREO LOS OBJETOS Y LES ASIGNO EL ESTADO ACTUAL
+        let categoria = state.categoria;
         let resultado = {...state.resultado};
         let contacto = {...state.contacto};
-        let detalle = {...state.detalles};
+        let detalles = {...state.detalles};
+        let snack = {...sb};
 
         const valueToState = ({ name, value }) => {
-       
             resultado[name] = value;
+
             if (name === "tema") {
-                resultado[name] = value[0];
-                detalle.Asunto = JSON.parse(value)[1];
-                //console.log('tema: '+JSON.parse(value)[0]);
-                categoria = valorCategoria(JSON.parse(value)[0]);
-                resultado.categoria = categoria[0];
+                resultado.tema = JSON.parse(value)[0];
+                detalles.asunto =  'Tema: '+JSON.parse(value)[1];
+                categoria = valorCategoria((JSON.parse(value)[0]));
+                resultado.categoria = 0;//categoria[0];
             }
 
             if (name === "categoria") {
-                console.log(state.detalle.Asunto);
-                console.log('value: '+value);
-                /* var String_1 = "Hello" ;
- 
-    var String_2 = "User" ;
- 
-    var String_3 = String_1.concat(" " , String_2);*/
-                var asu1 = state.detalle.Asunto;
-                var asu2 = [];
-                console.log(valorCategoria(parseInt(value)));
-                asu2 = valorCategoria(parseInt(value));
-                console.log(asu2.desc);
-                console.log('asunto0: '+detalle.Asunto);
-                detalle.Asunto = asu1+asu2.desc;
-                console.log('asunto1: '+detalle.Asunto);
-               
+                resultado.categoria = JSON.parse(value)[0];
+        
+                var asu = state.detalles.asunto;
+                detalles.asunto = state.detalles.asunto+' - Categoria:'+JSON.parse(value)[1]; //<--grabo elcampo "asunto" en la tabla detalle
+                //valueToStateDetalle(name=asun,value=detalles.asunto)
             }
             setState({
                 categoria: categoria,
                 resultado: resultado,
                 contacto: contacto,
-                detalle: detalle,
+                detalles: detalles,
             });
         };
 
-      const valueToStateContacto = ({ name, value, checked, type }) => {
+        const valueToStateContacto = ({ name, value, checked, type }) => {
 
             contacto[name] = type === "checkbox" ? checked : value;
 
@@ -173,30 +222,172 @@ const ReclamosForm = (props) => {
                 categoria: categoria,
                 resultado: resultado,
                 contacto: contacto,
-                detalle: detalle,
+                detalles: detalles,
             });
-    };
+        };
 
-        const valueToStateDetalle = ({ name, value}) => {
-
-                detalle[name] = value;
-
+            const valueToStateDetalle = ({ name, value}) => {
+                detalles[name] = value;
+                console.log([detalles]);
                 setState({
                     categoria: categoria,
                     resultado: resultado,
                     contacto: contacto,
-                    detalle: detalle,
+                    detalles: detalles,
                 });
             };
 
-    
+            //#endregion
 
+        //funciones para llenar el CUERPO del correo con datos
+        const trabajadorEmpleadorSTR=(e)=>{
+            switch(e) {
+                case '1':
+                 return 'Trabajador';
+                case '2':
+                 return 'Empleador';
+                default:
+                 return 'Otro';
+                }
+        }
 
-      const submitHandler = e =>{
+        const tipoTramiteSTR=(e)=>{
+            switch(e) {
+                case '1':
+                 return 'Consulta';
+                case '2':
+                 return 'Reclamo';
+                default:
+                 return 'Reclamo';
+                }
+        }
+
+       const validate = () => {
+            let nameError = "";
+            
+            console.log('trabajador/empl1: '+state.contacto.trabajadorEmpleador)
+
+            if (state.contacto.trabajadorEmpleador == '') {
+            
+                nameError = "Debe seleccionar un Tipo de Usuario (Trabajador/Empleador/Otro)";
+                
+            }
+
+            if (state.contacto.trabajadorEmpleador == '1') {
+                console.log('docNro1: '+state.contacto.docNro)
+                if(state.contacto.docNro == 0){
+                    nameError = "Debe ingresar su Numero de DNI";
+                }
+            }
+
+            console.log('trabajador/empl2: '+state.contacto.trabajadorEmpleador)
+            if (state.contacto.trabajadorEmpleador == '2') {
+                console.log('docNro2: '+state.contacto.docNro)
+                if(state.contacto.cuitNro == 0){
+                    nameError = "Debe ingresar su CUIT";
+                }
+            }
+
+            if (!state.resultado.telParticular && !state.resultado.telLaboral && !state.resultado.telCelular) {
+                nameError = "Debe ingresar al menos un teléfono de contacto.";
+            }
+        
+            if ( nameError) {
+                setsb({
+                    showSnackBar: true,
+                    severitySnackbar: "error",
+                    mensajeSnackbar: nameError,
+                });   
+              return false;
+            }
+        
+            return true;
+          };  
+
+      const submitHandler = async e =>{
           e.preventDefault()
 
+         //Validaciones de campos
+         const isValid = await validate();
+         if (!isValid) {
+           console.log('error..'+sb.mensajeSnackbar);
+           return <Snackb value={sb.showSnackBar} mensaje={sb.mensajeSnackbar} />
+         }
+
+         //Verifico MEDIOS del contacto
+         let medios = [];
+
+         medios.push(
+            {Interno:0,
+            Contacto: 0,
+            Tipo: 'E',
+            Direccion: state.resultado.email
+            })
+         
+        if (state.resultado.telParticular !== ''){medios.push(
+            {Interno:0,
+            Contacto: 0,
+            Tipo: 'T',
+            Direccion: state.resultado.telParticular
+            }) 
+        }
+
+        if (state.resultado.telLaboral !== '') {medios.push(
+            {Interno:0,
+            Contacto: 0,
+            Tipo: 'T',
+            Direccion: state.resultado.telLaboral
+            })
+        }
+                
+        if (state.resultado.telCelular !== '') {medios.push(
+            {Interno:0,
+            Contacto: 0,
+            Tipo: 'T',
+            Direccion: state.resultado.telCelular
+            })
+        }
+ 
           var date = new Date(); //Current Date
           var fecha = moment(date).format('YYYY-MM-DD HH:mm:ss')
+          var fecha2 = moment(date).format('DD-MM-YYYY HH:mm:ss')
+
+          console.log('trabEmpl: '+state.contacto.trabajadorEmpleador)
+          const RefReclamoConsultaContacto = {
+            interno: state.contacto.interno,
+            docTipo:  state.contacto.trabajadorEmpleador === '2' ? '80' : '96',
+            docNro: state.contacto.trabajadorEmpleador === '2' ? state.contacto.cuitNro : state.contacto.docNro,
+            trabajadorEmpleador: state.contacto.trabajadorEmpleador,
+            nombre: state.contacto.nombre,
+            RefReclamoConsultaMedio: medios,
+          };
+
+          const RefReclamoConsultaDetalle = {
+            Interno: 0,
+            ReclamoConsulta: state.resultado.tipodeTramite,
+            Ingreso: fecha,
+            Medio: 0,
+            Asunto:  state.detalles.asunto,
+            Cuerpo: state.detalles.cuerpo,
+            Movimiento: 'E',
+            Operador: 0,
+            Revision: null,
+            CuerpoHtml:'<b> Tipo de Tramite: </b>'+ tipoTramiteSTR(state.resultado.tipodeTramite) + ' <p>'+
+                '<b>Trabajador/Empleador: </b>'+trabajadorEmpleadorSTR(state.contacto.trabajadorEmpleador)+'<p>'+
+                '<b>Siniestro: </b>'+state.resultado.siniestro+ '<p>'+
+                '<b>Nombre-Apellido/Razón Social: </b>'+state.contacto.nombre+ '<p>'+
+                '<b>DNI: </b>' +state.contacto.docNro+ '<p>'+
+                '<b>CUIT: </b>' +state.contacto.cuitNro+ '<p>'+
+                '<b>Celular: </b>'+state.resultado.telCelular+ '<p>' +
+                '<b>Teléfono Particular: </b>'+state.resultado.telParticular+ '<p>'+
+                '<b>Teléfono Laboral: </b>'+state.resultado.telLaboral+ '<p>'+
+                '<b>Dirección: </b>'+state.resultado.direccion+ '<p>'+
+                '<b>E-mail: </b>'+state.resultado.email+ '<br><br>'+
+                '<u><b>Asunto: </b>'+state.detalles.asunto+ '</u><p> '+
+                '<b>Mensaje: </b>'+state.detalles.cuerpo+'<br><br> '+
+                '<b>Fecha/Hora: </b>'+fecha2+'<p> ',
+                //'<b>Nro de Reclamo-Consulta:  </b>'+state ,
+          };
 
           const refReclamoConsulta = {
             Interno: 0,
@@ -209,76 +400,53 @@ const ReclamosForm = (props) => {
             Apertura: fecha,
             Cierre: null,
             Siniestro: state.resultado.siniestro,
+            RefReclamoConsultaContacto: RefReclamoConsultaContacto,
+            RefReclamoConsultaDetalle: RefReclamoConsultaDetalle
           };
 
-          
-          const refReclamoConsultaDetalle = {
-            Interno: 0,
-            ReclamoConsulta: state.resultado.tipodeTramite,
-            Ingreso: fecha,
-            Medio: 0,
-            Asunto: '',//tema y categoria
-            Cuerpo:  state.resultado.mensaje,
-            Movimiento: 'E',
-            Operador: 0,
-            Revision: null
-          };
-
-          console.log(refReclamoConsulta)
-          Api.post(`RefReclamoConsulta/RefReclamoConsultaAgregar`, refReclamoConsulta, {
+         try{
+            await Api.post(`RefReclamoConsulta/RefReclamoConsultaAgregar`, refReclamoConsulta, {
                 headers: {
                     'Content-Type': 'application/json',
                 }            
-            })     
-            .then(response => { //si se graba ok, entonces grabo los detalles
-               console.log('respuesta'+response)
-                
-               Api.post(`RefReclamoConsultaDetalle/RefReclamoConsultaDetalleAgregar`, refReclamoConsultaDetalle, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }            
-                })     
-                .then(response => { //si ok, entonces emito el mensaje success
-                    console.log('respuesta'+{response})
-                })
-                .catch(error =>{
-                    console.log('error'+{error})
-                    
-                })
-            })
-            .catch(error =>{
-                console.log('error'+{error});
-                error = "" ?  'noerror' :
-                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="error">
-                Error interno, el envio no se pudo realizar!
-                </Alert>
-            </Snackbar>;
-            })
-      } 
- 
-      /*function soloNumeros(e){
-        var tecla = (document.all) ? e.keyCode : e.which;
-
-        //Tecla de retroceso para borrar, siempre la permite
-        if (tecla==8){
-            return true;
-        }
-            
-        // Patron de entrada, en este caso solo acepta numeros
-        var patron =/[0-9]/;
-        var tecla_final = String.fromCharCode(tecla);
-        return patron.test(tecla_final);
-    }*/
+            }).then(res => { 
+                console.log('interno2' +JSON.stringify(res.data.Interno)) 
+                setsb({
+                    showSnackBar: true,
+                    severitySnackbar: "success",
+                    mensajeSnackbar: 'Se registró con éxito su Consulta con el Nro de trámite '+JSON.stringify(res.data.Interno)+'! nos pondremos en contacto.',
+                    });      
+                return res;
+            }).catch(err => {
+                setsb({
+                    showSnackBar: true,
+                    severitySnackbar: "error",
+                    mensajeSnackbar: 'Error al enviar la Consulta!',
+                    }); 
+                return err
+            });
+            }
+            catch{
+                snack.showSnackBar = true
+                snack.severitySnackbar = "error"
+                snack.mensajeSnackbar = 'Error al enviar la Consulta!'
+                setsb({
+                    showSnackBar: true,
+                    severitySnackbar: "error",
+                    mensajeSnackbar: 'Error al enviar la Consulta!',
+                    }); 
+            }
+      };
 
     return (
+        
         <ThemeProvider theme={theme}>
             <form onSubmit={submitHandler} width="66.6666666667%">
-                <p>{JSON.stringify(state, null, 2)}</p>
+                {/*<p>{JSON.stringify(state, null, 2)}</p>*/}
                 <div   style={{display: 'flex'}}>
                     <FormControl variant="outlined" className={classes.formControl}>
                         <InputLabel ref={inputLabel} htmlFor="tipodeTramite">
-                        Tramite
+                            Tramite
                         </InputLabel>
                         <Select
                         native
@@ -290,23 +458,11 @@ const ReclamosForm = (props) => {
                         <option value={null} />
                         <option value={1}>Consulta</option>
                         <option value={2}>Reclamo</option>
-                        <option value={3}>Queja</option>
                         </Select>
                     </FormControl>
-
-                    <div  style={{display: 'flex','align-self': 'center'}}>
-                        <label>
-                            Ninguna
-                            <GreenRadio
-                            type="radio"
-                            name="trabajadorEmpleador"
-                            checked={state.contacto.trabajadorEmpleador === '0'}
-                            onChange={event => valueToStateContacto(event.target)}
-                            value={0}
-                            />
-                        </label>
-
-                        <label>
+                    
+                    <div  style={{display: 'flex','align-self': 'center', alignSelf: 'center'}}>
+                        <label  style={{margin: '0% 5%'}}>
                             Trabajador
                             <GreenRadio
                             type="radio"
@@ -317,7 +473,7 @@ const ReclamosForm = (props) => {
                             />
                         </label>
 
-                        <label>
+                        <label  style={{margin: '0% 5%'}}>
                             Empleador
                             <GreenRadio
                             type="radio"
@@ -327,25 +483,24 @@ const ReclamosForm = (props) => {
                             value={2}
                             />
                         </label>
+
+                        <label  style={{margin: '0% 5%'}}>
+                            Otro
+                            <GreenRadio
+                            type="radio"
+                            name="trabajadorEmpleador"
+                            checked={state.contacto.trabajadorEmpleador === '0'}
+                            onChange={event => valueToStateContacto(event.target)}
+                            value={0}
+                            />
+                        </label>
                     </div>       
-                                        
-                    <FormControl className={classes.formControl} noValidate autoComplete="off">
-                        <TextField
-                            label="Siniestro"
-                            variant="outlined"
-                            name="siniestro"
-                            type="text"
-                            maxlength="10"
-                            onChange={event => valueToState(event.target)}
-                            required
-                        />
-                    </FormControl>
                 </div>
 
                 <div style={{display: 'flex'}}>  
                     <FormControl className={classes.formControl} noValidate autoComplete="off">
                         <TextField
-                            label="Nombre / Razon Social"
+                            label="Nombre-Apellido / Razón Social"
                             variant="outlined"
                             name="nombre"
                             color="primary"
@@ -356,29 +511,41 @@ const ReclamosForm = (props) => {
                     </FormControl> 
 
                     <FormControl className={classes.formControl} noValidate autoComplete="off">
-                        <TextField
+                        <TextField         
                             label="DNI"
                             variant="outlined"
                             name="docNro"
-                            type="text"
+                            type="number"
                             onChange={event => valueToStateContacto(event.target)}
-                            required
+                            required = {state.contacto.trabajadorEmpleador == '1' ? true : false}
                         />
                     </FormControl>
+
 
                     <FormControl className={classes.formControl} noValidate autoComplete="off">
                         <TextField
                             label="CUIT"
                             variant="outlined"
-                            name="docNro"
-                            type="text"
+                            name="cuitNro"
+                            type="number"
                             onChange={event => valueToStateContacto(event.target)}
-                            required
+                            required = {state.contacto.trabajadorEmpleador == '2' ? true : false}
                         />
                     </FormControl>
                 </div>
 
                 <div  style={{display: 'flex'}}>
+
+                    <FormControl className={classes.formControl} noValidate autoComplete="off">
+                        <TextField
+                            label="Teléfono Celular"
+                            variant="outlined"
+                            name="telCelular"
+                            type="tel"
+                            onChange={event => valueToState(event.target)}
+                        />
+                    </FormControl>
+
                     <FormControl className={classes.formControl} noValidate autoComplete="off">
                         <TextField
                             label="Teléfono Particular"
@@ -386,7 +553,6 @@ const ReclamosForm = (props) => {
                             name="telParticular"
                             type="tel"
                             onChange={event => valueToState(event.target)}
-                            required
                         />
                     </FormControl>
 
@@ -397,27 +563,16 @@ const ReclamosForm = (props) => {
                             name="telLaboral"
                             type="tel"
                             onChange={event => valueToState(event.target)}
-                            required
-                        />
-                    </FormControl>
-
-                    <FormControl className={classes.formControl} noValidate autoComplete="off">
-                        <TextField
-                            label="Teléfono Celular"
-                            variant="outlined"
-                            name="telCelular"
-                            type="tel"
-                            onChange={event => valueToState(event.target)}
-                            required
                         />
                     </FormControl>
                 </div>
 
-                <div  style={{display: 'flex'}}>
+                <div style={{display: 'grid'}}>
                     <FormControl className={classes.formControl} noValidate autoComplete="off">
                         <TextField
-                            label="Direccion"
+                            label="Provincia/calle/nro."
                             variant="outlined"
+                            placeholder="Provincia/calle/nro."
                             name="direccion"
                             type="text"
                             onChange={event => valueToState(event.target)}
@@ -449,13 +604,14 @@ const ReclamosForm = (props) => {
                         onChange={event => valueToState(event.target)}
                         required
                         >
-                            <option value={JSON.stringify([1,''])}></option>
-                            <option value={JSON.stringify([1,'Afiliación y Contratos'])}>Afiliación y Contratos</option>
+                            <option value={JSON.stringify([0,''])}></option>
+                            <option value={JSON.stringify([1,'Afiliaciónes y Contratos'])}>Afiliaciónes y Contratos</option>
                             <option value={JSON.stringify([2,'Comisiones Médicas'])}>Comisiones Médicas</option>
                             <option value={JSON.stringify([3,'Exámenes Periódicos'])}>Exámenes Periódicos</option>
                             <option value={JSON.stringify([4,'Prestaciones Dinerarias'])}>Prestaciones Dinerarias</option>
                             <option value={JSON.stringify([5,'Prestaciones en Especie'])}>Prestaciones en Especie</option>
                             <option value={JSON.stringify([6,'Prevención'])}>Prevención</option>
+                            <option value={JSON.stringify([7,'Otros'])}>Otros</option>
                         </Select>
                     </FormControl>
                     
@@ -470,41 +626,57 @@ const ReclamosForm = (props) => {
                             onChange={event =>valueToState(event.target)}
                             required
                         >
-
-                            {state.categoria.map((cat,index) =>{
+                            {state.categoria.map((cat) =>{
                                 return (
-                                    <option value={cat.cod} key={index} >{ cat.desc }</option>
+                                    <option value={JSON.stringify([cat.cod,cat.desc])} key={cat.cod} >{ cat.desc }</option>
                                 )    
 
                             })} 
 
                         </Select>
                     </FormControl>
+
+                    <FormControl style={{width: '47%'}}className={classes.formControl} noValidate autoComplete="off">
+                        <TextField
+                            label="Nro. de Siniestro (en caso de conocerlo)"
+                            variant="outlined"
+                            name="siniestro"
+                            type="number"
+                            maxlength="10"
+                            onChange={event => valueToState(event.target)}
+                        />
+                    </FormControl>
                 </div>   
-                    {/*<label htmlFor="mensaje">Mensaje:</label>*/}
+                  
                 <div className="contact-form"> 
                     <div className={classes.formControl} noValidate autoComplete="off">
+                    <label>Mensaje:</label>
                     <textarea 
-                        name="mensaje"
-                        placeholder="Escriba su sugerencia"
-                        onChange={event => valueToState(event.target)}
+                        name="cuerpo"
+                        placeholder="Escriba su consulta"
+                        onChange={event => valueToStateDetalle(event.target)}
                         required
                     /> 
                     </div>      
                 </div>
 
                 <ThemeProvider theme={theme}>
-                    <Button type="submit" variant="contained" color="primary" className={classes.button}>
-                        Enviar
-                    </Button>
+                  
                     <Link to="/INICIO">
                         <Button variant="contained" color="primary" className={classes.button}>
                             Cancelar
                         </Button>
                     </Link>
-                </ThemeProvider>
+                    <Button type="submit" variant="contained" color="primary" disabled={sb.severitySnackbar === "success" ? true : false} className={classes.button}>
+                        Enviar
+                    </Button>
+                </ThemeProvider>    
                     
             </form>
+            {sb.showSnackBar = true ?                   
+            <Snackb value={sb.showSnackBar} mensaje={sb.mensajeSnackbar} tipo={sb.severitySnackbar}/>
+            :
+            null}
      </ThemeProvider>
     );
 };

@@ -12,25 +12,25 @@ export class Menu extends Component {
     return (
 
       <div>
-          
-            <Link to="/INICIO">
-              <img className="center header" src={Logo}/>
-            </Link>
+            <div>
+              <Link to="/INICIO">
+                <img className="center header"  src={Logo}/>
+              </Link>
 
-            <div style={{float: 'right', display: 'flex', color: 'gray'}}>
-              <PhoneIcon style={{'font-size': '4em'}} />
-              <div>
-                <a  style={{display: 'inline','font-weight': 'bold'}}>Centro de Atención al Cliente
+              <div style={{float: 'right', display: 'flex', color: 'gray', marginTop: '1%'}}>
+                <PhoneIcon style={{'font-size': '4em'}} />
+                <div>
+                  <a  style={{display: 'inline','font-weight': 'bold'}}>EMERGENCIAS
+                  </a>
+                  <br/>
+                  <h2 style={{'font-weight': '900'}} >0800 333 6888</h2>
+                </div>
+                <a title="Trabaje con Nosotros" href="http://artmutualrural.com:8080/exec/art/arti.wap.0" target="_blank">
+                  <AccountCircleIcon style={{'font-size': '4.6em', color: 'orange'}} />
                 </a>
-                <br/>
-                <h2 style={{'font-weight': '900'}} >0800 111 222</h2>
+                <Edifice width={65} fill='white' style={{margin: '4px',display: 'inline-block',padding: '2px','border-radius': '50%', backgroundColor:'orange'}}/>
               </div>
-              <a href="http://artmutualrural.com:8080/exec/art/arti.wap.0" target="_blank">
-                <AccountCircleIcon style={{'font-size': '4.6em', color: 'orange'}} />
-              </a>
-              <Edifice width={65} fill='white' style={{margin: '4px',display: 'inline-block',padding: '2px','border-radius': '50%', backgroundColor:'orange'}}/>
             </div>
-
        
         <nav className="navbar navbar-expand-lg navbar-dark MyNavbar">
           <button
@@ -45,7 +45,7 @@ export class Menu extends Component {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="collapse navbar-collapse container" id="navbarSupportedContent">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
                 <Link className="nav-color" to="/INICIO">
@@ -55,14 +55,38 @@ export class Menu extends Component {
               <li className="nav-item dropdown">
                 <Link
                   className="nav-color dropdown-toggle"
-                  to="/ART"
+                  to="/NOSOTROS"
                   id="navbarDropdown"
                   role="button"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  ART
+                  NOSOTROS
+                </Link>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown" style={{backgroundColor: 'yellowgreen'}}>
+                  <Link className="dropdown-item" to="/NOSOTROS_QUIENES">
+                    QUIENES SOMOS
+                  </Link>
+                  <Link className="dropdown-item" to="/NOSOTROS_PORQUE">
+                    POR QUE SOMOS UNA MUTUAL
+                  </Link>
+                  <Link className="dropdown-item" to="/NOSOTROS_MISION">
+                    MISION, VISION, VALORES
+                  </Link>
+                  </div>
+              </li>
+              <li className="nav-item dropdown">
+                <Link
+                  className="nav-color dropdown-toggle"
+                  to="/COBERTURA"
+                  id="navbarDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  COBERTURA
                 </Link>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown" style={{backgroundColor: 'yellowgreen'}}>
                   <Link className="dropdown-item" to="/COBERTURA">
@@ -96,15 +120,6 @@ export class Menu extends Component {
                   aria-disabled="true"
                 >
                   NOVEDADES
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-color"
-                  to="/CONTACTO"
-                  aria-disabled="true"
-                >
-                  CONTACTO
                 </Link>
               </li>
               <li className="nav-item">

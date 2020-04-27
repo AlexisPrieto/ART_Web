@@ -1,5 +1,5 @@
 .icono{
-    padding: 60px;
+    padding: 8%;/*60px;*/
     margin: 10px;
     background-color: #84bc01;
     display: inline-block;
@@ -15,6 +15,8 @@
     box-sizing: border-box;
     display: inherit;
     color: gray;
+    font-weight: 700;
+    font-size: 2rem;
 }
 
 div.gallery img {
@@ -24,9 +26,9 @@ div.gallery img {
   
   
   .responsive {
-    padding: 0 6px;
-    display: inline;
-    width: 24.99999%;
+    /*padding: 0 6px;*/
+    /*display: inline;*/
+    width: 26%;
   }
   
   .white{

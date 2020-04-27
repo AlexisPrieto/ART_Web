@@ -3,6 +3,14 @@ import '../../Assets/Css/estilos.css';
 
 export class Delegaciones extends Component {
    
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+    
+    componentDidUpdate(){
+        window.scrollTo(0, 0)
+    }
+    
     constructor(props) {
         super(props)
         

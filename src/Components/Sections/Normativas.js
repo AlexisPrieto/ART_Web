@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useEffect } from "react";
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -52,6 +52,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function FullWidthTabs() {
+
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -64,8 +65,8 @@ export default function FullWidthTabs() {
     setValue(index);
   };
 
-  const tab0 = {
-    listitems0: [
+  const tab1 = {
+    listitems1: [
       {
         a: 'Ley 24.557/1995 - Ley de Riesgos del Trabajo',
         ahref: 'http://servicios.infoleg.gob.ar/infolegInternet/anexos/25000-29999/27971/norma.htm',
@@ -119,8 +120,8 @@ export default function FullWidthTabs() {
     ]
   };
 
-  const tab1 = {
-    listitems1: [
+  const tab0 = {
+    listitems0: [
       {
         a:'Resolución General AFIP 3487/2013',
         ahref:'http://servicios.infoleg.gob.ar/infolegInternet/verNorma.do?id=248471',
@@ -214,7 +215,7 @@ export default function FullWidthTabs() {
     ]
   };
 
-  const tab3 = {
+  /*const tab3 = {
     listitems3: [ {
         a:'¿Qué hacer ante un accidente de trabajo?',
         ahref:'http://www.derechoenzapatillas.org/2015/accidente-de-trabajo/',
@@ -236,13 +237,13 @@ export default function FullWidthTabs() {
         desc:'',
       },
     ]
-  };
+  };*/
 
   return (
     <div className={classes.root} className="container">
-      <div>
+      {/*<div>
         Aquí podrá acceder a informacion oficial de la SSN: Leyes, Resoluciones, Decretos y más.
-      </div>
+      </div>*/}
 
       <AppBar position="static">
         <Tabs
@@ -253,20 +254,21 @@ export default function FullWidthTabs() {
           aria-label="full width tabs example"
           style={{ backgroundColor: "yellowgreen" }}
         >
+         <Tab className={classes.desc}
+            label="Normativa General" 
+            {...a11yProps(0)} />
+
           <Tab className={classes.desc}
             label="Ley de Riesgos del Trabajo y Normativa Complementaria"
-            {...a11yProps(0)}
+            {...a11yProps(1)}
           />
-          <Tab className={classes.desc}
-            label="Normativa General" 
-            {...a11yProps(1)} />
           <Tab className={classes.desc}
             label="Ley de Higiene y Seguridad y Normativa Complementaria"
             {...a11yProps(2)}
           />
-          <Tab className={classes.desc}
+          {/*<Tab className={classes.desc}
             label="Comentarios Anexos Relacionados" 
-            {...a11yProps(3)} />
+            {...a11yProps(3)} />*/}
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -336,7 +338,7 @@ export default function FullWidthTabs() {
           </ul>
         </TabPanel>
 
-        <TabPanel value={value} index={3} dir={theme.direction}>
+        {/*<TabPanel value={value} index={3} dir={theme.direction}>
           <ul className="list-group">
             {tab3.listitems3.map(listitem => (
               <li
@@ -355,7 +357,7 @@ export default function FullWidthTabs() {
               </li>
             ))}
           </ul>
-        </TabPanel>
+        </TabPanel>*/}
       </SwipeableViews>
     </div>
   );

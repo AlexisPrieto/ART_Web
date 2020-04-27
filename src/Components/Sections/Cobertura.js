@@ -2,6 +2,15 @@ import React, { Component } from 'react'
 import denunciaesquema from '../../Assets/Img/denunciaesquema.jpg';
 
 export class Cobertura extends Component {
+
+    componentDidMount() {
+        window.scrollTo(0, 0)
+      }
+    
+    componentDidUpdate(){
+        window.scrollTo(0, 0)
+    }
+    
     render() {
         return (
             <div className="">
@@ -53,16 +62,16 @@ export class Cobertura extends Component {
                 </p>
 
                 <div className="container">
-                <h4>
-                    Gráfico provisto por la " 
-                    <a href="https://www.argentina.gob.ar/srt" style={{color:'blue','text-decoration': 'underline' }} target="_blank">
-                     Superintendencia de Seguros del Trabajo
-                     </a><a>"</a>
-                </h4>
                 <p className="container">
                     <img src={denunciaesquema}/>    
                     
                 </p>
+                <h6>
+                    Gráfico provisto por la " 
+                    <a href="https://www.argentina.gob.ar/srt" style={{color:'blue','text-decoration': 'underline' }} target="_blank">
+                     Superintendencia de Seguros del Trabajo
+                     </a><a>"</a>
+                </h6>
                 </div>
             </div>
         )
