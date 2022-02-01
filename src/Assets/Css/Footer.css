@@ -1,0 +1,39 @@
+
+.footerBanners{
+    background-color: white;
+    zoom: 0.6;
+    text-align: center;
+}
+
+.footerBanners > a > img{
+    padding: 0% 5%;
+}
+
+.foot-menu{
+    float: left; 
+    width: 23%;
+}
+
+.foot-menu-detalle{
+    display: 'flex';
+    margin-top: '4%';
+}
+
+/*@media all and (max-width: 1600px) {*/
+
+@media (max-width: 768px) {
+    .footerBanners{
+      display: grid;
+      background-color: white;
+      zoom: 0.6;
+      text-align: initial;
+    }
+
+    .foot-menu{
+        display: contents;
+    }
+
+    .foot-menu-detalle{
+        display: contents !important; 
+    }
+  }

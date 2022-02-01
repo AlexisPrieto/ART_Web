@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import Img from '../../Assets/Img/ConsultasYreclamos.png'
+import Img from '../../Assets/Img/ConsultasYReclamos.jpg'
 import Phone24 from "../../Assets/Icons/ART_Icon_Phone24";
 import Phone from "../../Assets/Icons/ART_Icon_Phone";
 import ReclamosForm from "./ReclamosForm";
@@ -14,11 +14,11 @@ export class Reclamos extends Component {
     return (
 
         <Fragment>
-            
-            <img width="100%"src={Img}></img>
-            
+            {/*<div className="each-slide"> 
+                <img width="100%"src={Img}></img>
+            </div>*/}
             <div className="Reclamos">
-                <ul className="Reclamos-List">
+                <ul className="Reclamos-List hide-celular">
                     <div>
                         <img src={Cecap} width={100} alt="Logo" />
                         {/*<Cecap width={100} />*/}

@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {InputLabel, Button, TextField, Select, FormControl, Radio} from '@material-ui/core';
 import {createMuiTheme, makeStyles, withStyles,ThemeProvider} from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
-
 import moment from "moment"
 import Api from '../../Api/Api';
 import {Link, browserHistory} from "react-router-dom";
@@ -11,10 +10,16 @@ import Snackbar from '@material-ui/core/Snackbar'
 import '@material/react-snackbar/dist/snackbar.css';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import ReCaptchaV2 from "react-google-recaptcha";
 
 const theme = createMuiTheme({
     palette: {
-      primary: green,
+      primary:{
+        light: '#83BC00',
+        main: '#83BC00',
+        dark: 'green',
+        contrastText: '#fff',
+    },
       secondary: green,
     },
   });
@@ -32,16 +37,15 @@ const useStyles = makeStyles(theme => ({
 
   const GreenRadio = withStyles({
     root: {
-      color: green[400],
+      color: '#83BC00',
       '&$checked': {
-        color: green[600],
+        color: '#83BC00',
       },
     },
     checked: {},
   })(props => <Radio color="default" {...props} />);
 
 const ReclamosForm = (props) => {
-
     const [sna, setSna] = React.useState({
         open: false,
         vertical: 'top',
@@ -92,7 +96,7 @@ const ReclamosForm = (props) => {
                 sb.severitySnackbar == "success" ?
                 (<React.Fragment>
                     <Link to="/INICIO">
-                        <Button color="secondary" size="small">
+                        <Button color="primary" size="small">
                             OK
                         </Button>
                     </Link>
@@ -103,7 +107,7 @@ const ReclamosForm = (props) => {
                     </Link>
                 </React.Fragment>):
                 (<React.Fragment>
-                    <Button color="secondary" size="small" onClick={handleClose}>
+                    <Button color="primary" size="small" onClick={handleClose}>
                         OK
                     </Button>
                     <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
@@ -137,6 +141,8 @@ const ReclamosForm = (props) => {
             telParticular:"",
             telLaboral:"",
             telCelular:"",
+            provincia: "",
+            localidad: "",
             direccion:"",
             email:"",
             tema: 0,
@@ -221,7 +227,7 @@ const ReclamosForm = (props) => {
             setState({
                 categoria: categoria,
                 resultado: resultado,
-                contacto: contacto,
+                contacto: contacto, 
                 detalles: detalles,
             });
         };
@@ -304,6 +310,19 @@ const ReclamosForm = (props) => {
             return true;
           };  
 
+        //RECAPTCHA  
+        const handleToken = (token) => {
+        setState((currentForm) => {
+        return {...currentForm, token }
+        })
+        }
+    
+        const handleExpire = () => {
+        setState((currentForm) => {
+        return {...currentForm, token: null }
+        })
+        }
+            
       const submitHandler = async e =>{
           e.preventDefault()
 
@@ -381,25 +400,30 @@ const ReclamosForm = (props) => {
                 '<b>Celular: </b>'+state.resultado.telCelular+ '<p>' +
                 '<b>Teléfono Particular: </b>'+state.resultado.telParticular+ '<p>'+
                 '<b>Teléfono Laboral: </b>'+state.resultado.telLaboral+ '<p>'+
+                '<b>Provincia: </b>'+state.resultado.provincia+ '<p>'+
+                '<b>Localidad: </b>'+state.resultado.localidad+ '<p>'+
                 '<b>Dirección: </b>'+state.resultado.direccion+ '<p>'+
                 '<b>E-mail: </b>'+state.resultado.email+ '<br><br>'+
                 '<u><b>Asunto: </b>'+state.detalles.asunto+ '</u><p> '+
                 '<b>Mensaje: </b>'+state.detalles.cuerpo+'<br><br> '+
                 '<b>Fecha/Hora: </b>'+fecha2+'<p> ',
+                SectorInterno: 0,
+                OperadorReasigna: 0,
                 //'<b>Nro de Reclamo-Consulta:  </b>'+state ,
           };
 
           const refReclamoConsulta = {
             Interno: 0,
             Operador: 4,
-            Origen: 4,//4 = WEB
+            Origen: 4,//4 = WEB, el 20-08-31 rodri me dice que lo cambie a origen = 1
             Tramite: state.resultado.tipodeTramite,
             Tema: state.resultado.tema,
             Categoria: state.resultado.categoria,
-            Contacto: 0,
+            Contacto: 0, 
             Apertura: fecha,
             Cierre: null,
             Siniestro: state.resultado.siniestro,
+            ContactoDomicilioInterno: 0,
             RefReclamoConsultaContacto: RefReclamoConsultaContacto,
             RefReclamoConsultaDetalle: RefReclamoConsultaDetalle
           };
@@ -443,7 +467,7 @@ const ReclamosForm = (props) => {
         <ThemeProvider theme={theme}>
             <form onSubmit={submitHandler} width="66.6666666667%">
                 {/*<p>{JSON.stringify(state, null, 2)}</p>*/}
-                <div   style={{display: 'flex'}}>
+                <div className="form-reclamos">
                     <FormControl variant="outlined" className={classes.formControl}>
                         <InputLabel ref={inputLabel} htmlFor="tipodeTramite">
                             Tramite
@@ -453,7 +477,7 @@ const ReclamosForm = (props) => {
                         labelWidth={labelWidth}
                         name="tipodeTramite"
                         onChange={event => valueToState(event.target)}
-                        required
+                        required 
                         >
                         <option value={null} />
                         <option value={1}>Consulta</option>
@@ -461,7 +485,7 @@ const ReclamosForm = (props) => {
                         </Select>
                     </FormControl>
                     
-                    <div  style={{display: 'flex','align-self': 'center', alignSelf: 'center'}}>
+                    <div className="form-reclamos" style={{'align-self': 'center', alignSelf: 'center'}}>
                         <label  style={{margin: '0% 5%'}}>
                             Trabajador
                             <GreenRadio
@@ -497,7 +521,7 @@ const ReclamosForm = (props) => {
                     </div>       
                 </div>
 
-                <div style={{display: 'flex'}}>  
+                <div className="form-reclamos">  
                     <FormControl className={classes.formControl} noValidate autoComplete="off">
                         <TextField
                             label="Nombre-Apellido / Razón Social"
@@ -524,6 +548,7 @@ const ReclamosForm = (props) => {
 
                     <FormControl className={classes.formControl} noValidate autoComplete="off">
                         <TextField
+                            holder = "123"
                             label="CUIT"
                             variant="outlined"
                             name="cuitNro"
@@ -534,7 +559,7 @@ const ReclamosForm = (props) => {
                     </FormControl>
                 </div>
 
-                <div  style={{display: 'flex'}}>
+                <div className="form-reclamos">
 
                     <FormControl className={classes.formControl} noValidate autoComplete="off">
                         <TextField
@@ -567,13 +592,25 @@ const ReclamosForm = (props) => {
                     </FormControl>
                 </div>
 
-                <div style={{display: 'grid'}}>
+                <div className="form-reclamos">
                     <FormControl className={classes.formControl} noValidate autoComplete="off">
                         <TextField
-                            label="Provincia/calle/nro."
+                            label="Provincia."
                             variant="outlined"
-                            placeholder="Provincia/calle/nro."
-                            name="direccion"
+                            placeholder="Provincia."
+                            name="provincia"
+                            type="text"
+                            onChange={event => valueToState(event.target)}
+                            required
+                        />
+                    </FormControl>
+                    
+                    <FormControl className={classes.formControl} noValidate autoComplete="off">
+                        <TextField
+                            label="Localidad."
+                            variant="outlined"
+                            placeholder="Localidad."
+                            name="localidad"
                             type="text"
                             onChange={event => valueToState(event.target)}
                             required
@@ -581,6 +618,19 @@ const ReclamosForm = (props) => {
                     </FormControl>
 
                     <FormControl className={classes.formControl} noValidate autoComplete="off">
+                        <TextField
+                            label="Domicilio."/*"Provincia/calle/nro."*/
+                            variant="outlined"
+                            placeholder="Domicilio."
+                            name="direccion"
+                            type="text"
+                            onChange={event => valueToState(event.target)}
+                            required
+                        />
+                    </FormControl>
+                    
+                </div>
+                <FormControl className={classes.formControl} noValidate autoComplete="off">
                         <TextField
                             label="Email"
                             variant="outlined"
@@ -590,9 +640,7 @@ const ReclamosForm = (props) => {
                             required
                         />
                     </FormControl>
-                </div>
-
-                <div style={{display: 'flex'}}>
+                <div className="form-reclamos">
                     <FormControl variant="outlined" className={classes.formControl} >
                         <InputLabel ref={inputLabel} htmlFor="tema">
                             Tema
@@ -636,7 +684,7 @@ const ReclamosForm = (props) => {
                         </Select>
                     </FormControl>
 
-                    <FormControl style={{width: '47%'}}className={classes.formControl} noValidate autoComplete="off">
+                    <FormControl className={classes.formControl} noValidate autoComplete="off">
                         <TextField
                             label="Nro. de Siniestro (en caso de conocerlo)"
                             variant="outlined"
@@ -652,6 +700,7 @@ const ReclamosForm = (props) => {
                     <div className={classes.formControl} noValidate autoComplete="off">
                     <label>Mensaje:</label>
                     <textarea 
+                        style={{'border-radius': '4px'}}
                         name="cuerpo"
                         placeholder="Escriba su consulta"
                         onChange={event => valueToStateDetalle(event.target)}
@@ -660,6 +709,15 @@ const ReclamosForm = (props) => {
                     </div>      
                 </div>
 
+                <div>
+					<ReCaptchaV2 
+						sitekey="6Le2BN4aAAAAAAmszeHqg7NmclYXPoaqC0PXoypW"
+						onChange={handleToken}
+						onExpire={handleExpire}
+					/>
+				</div>
+
+               <div style={{marginBottom:'15%'}} >                
                 <ThemeProvider theme={theme}>
                   
                     <Link to="/INICIO">
@@ -671,7 +729,7 @@ const ReclamosForm = (props) => {
                         Enviar
                     </Button>
                 </ThemeProvider>    
-                    
+            </div>    
             </form>
             {sb.showSnackBar = true ?                   
             <Snackb value={sb.showSnackBar} mensaje={sb.mensajeSnackbar} tipo={sb.severitySnackbar}/>

@@ -14,16 +14,43 @@
     /*justify-content: center;*/
     background-size: cover;
     background-position: bottom;
-    height: 770px;
+    height: 43em;/*770px;*/
     color: white;
   }
   
   @media all and (max-width: 1600px) {
     .each-slide > div {
-      height: 485px;
+      height: 31.5em;
     }
   }
 
+  @media all and (max-width: 1300px) {
+    .each-slide > div {
+      height: 25em;/*485px;*/
+    }
+  }
+
+  .each-slide > img {
+    display: flex;
+    align-items: flex-end;
+    /*justify-content: center;*/
+    background-size: cover;
+    background-position: bottom;
+    height: 43em;/*770px;*/
+    color: white;
+  }
+  
+  @media all and (max-width: 1600px) {
+    .each-slide > img {
+      height: 30em;/*485px;*/
+    }
+  }
+
+  @media all and (max-width: 1300px) {
+    .each-slide > img {
+      height: 25em;/*485px;*/
+    }
+  }
 
   .each-slide span {
     color: white;

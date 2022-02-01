@@ -1324,8 +1324,8 @@ window.Modernizr = (function( window, document, undefined ) {
     // A few important notes:
     //   * If a browser does not support media queries at all (eg. oldIE) the mq() will always return false
     //   * A max-width or orientation query will be evaluated against the current state, which may change later.
-    //   * You must specify values. Eg. If you are testing support for the min-width media query use:
-    //       Modernizr.mq('(min-width:0)')
+    //   * You must specify values. Eg. If you are testing support for the  media query use:
+    //       Modernizr.mq('(:0)')
     // usage:
     // Modernizr.mq('only screen and (max-width:768)')
     Modernizr.mq            = testMediaQuery;

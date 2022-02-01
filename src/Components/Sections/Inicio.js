@@ -2,12 +2,18 @@
 import React, { Component, Fragment } from "react";
 import "../../Assets/Css/Iconos.css";
 import Icon0 from "../../Assets/Icons/ART_Icon_Download";
-import Icon1 from "../../Assets/Icons/ART_Icon_Book";
+import Icon1 from "../../Assets/Icons/ART_Icon_Caution";
 import Icon2 from "../../Assets/Icons/ART_Icon_Folder";
 import Icon3 from "../../Assets/Icons/ART_Icon_Clipboard";
 import {Link} from "react-router-dom";
 import Slideshow from '../SlideShow';
+import PopUp from '../PopUp';
+import ReactGA from 'react-ga';
 
+
+//ReactGA.initialize('267149066');
+ReactGA.initialize('UA-210861270-1');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 export class Inicio extends Component {
 
@@ -22,8 +28,33 @@ export class Inicio extends Component {
   render() {
     return (
       <Fragment>
+      {/*<PopUp/>*/}
       <Slideshow  className="container center"/>
       <div className="container">
+      <div>
+        <h5 style={{fontWeight: 700, margin: '5% -1%'}}>
+        <p>
+          Conocemos la vida cotidiana y el ambiente en el que se desarrolla la actividad del trabajador rural.
+          
+        </p>
+        
+        <p>
+          Entendemos las condiciones de trabajo y las distintas modalidades de contratación de los trabajadores.
+        </p>
+
+        <p>
+          Sabemos las grandes distancias a las que se encuentran de las rutas y de los centros de atención. 
+        </p>
+
+        <p>
+          Tenemos amplios conocimientos de los factores de riesgo químicos y mecánicos a los que están expuestos.
+        </p>
+
+        <p>
+          Entendemos el servicio que nuestros clientes necesitan porque contamos con la experiencia y el conocimiento del ámbito rural.
+        </p>
+        </h5>
+      </div>
         {/*
         <h4>
           RURAL ART cuenta con un renovado departamento de Prevención de Riesgo
@@ -114,17 +145,17 @@ export class Inicio extends Component {
           </div>
 
           <div className="responsive gallery">
-            <Link className="icono" to="/COBERTURA">
+            <Link className="icono" to="/DENUNCIAS">
               <Icon2 fill="white" width={100} />
             </Link>
             <h1 className="desc">Cobertura</h1>
           </div>
 
           <div className="responsive gallery">
-            <Link className="icono" to="/NORMATIVA">
+            <Link className="icono" to="/Fraude">
               <Icon1 fill="white" width={100} />
             </Link>
-            <h1 className="desc">Normativa</h1>
+            <h1 className="desc">Prevención de Fraude</h1>
           </div>
 
           <div className="responsive gallery">
