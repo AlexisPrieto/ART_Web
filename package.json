@@ -21,7 +21,7 @@
     "file-saver": "^2.0.5",
     "jquery": "^3.5.1",
     "material-ui-icons": "^1.0.0-beta.36",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "multi-download": "^3.0.0",
     "popper.js": "^1.16.1",
     "react": "^16.14.0",
